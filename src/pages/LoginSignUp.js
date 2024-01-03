@@ -3,11 +3,14 @@ import { Helmet } from 'react-helmet';
 import { useState } from "react";
 import axios from 'axios';
 import './LoginSignUp.css';
+import { useDispatch } from "react-redux";
+import { addToken } from "../store/slices/TokenSlice";
 
 const LoginSignUp = () => {
 
     const [signup, setSignUp] = useState({});
     const [login, setLogIn] = useState({});
+    const dispatch = useDispatch();
 
     const getUserSignUpData = (e) => {
         setSignUp({ ...signup, [e.target.name]: e.target.value });
@@ -24,7 +27,8 @@ const LoginSignUp = () => {
             const response = await axios.post('https://646b-115-69-246-177.ngrok-free.app/api/auth/signup', signup);
 
             // Handle the response as needed
-            console.log('Response from server:', response.data);
+            dispatch(addToken(response.data.token));
+            // console.log('Response from server:', response.data.token);
         } catch (error) {
             console.error('Error making API call:', error);
         }
@@ -37,7 +41,8 @@ const LoginSignUp = () => {
             const response = await axios.post('https://646b-115-69-246-177.ngrok-free.app/api/auth/signin', login);
 
             // Handle the response as needed
-            console.log('Response from server:', response.data);
+            dispatch(addToken(response.data.token));
+            // console.log('Response from server:', response.data.token);
         } catch (error) {
             console.error('Error making API call:', error);
         }
