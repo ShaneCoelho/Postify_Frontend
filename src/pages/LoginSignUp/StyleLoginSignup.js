@@ -1,3 +1,6 @@
+import styled from "styled-components";
+
+const StyleLoginSignup = styled.section`
 .ls-body{
 	margin: 0;
 	padding: 0;
@@ -6,7 +9,7 @@
 	align-items: center;
 	min-height: 100vh;
 	font-family: 'Jost', sans-serif;
-	background: linear-gradient(to bottom, #0f0c29, #302b63, #24243e);
+	background: linear-gradient(135deg, #71b7e6, #9b59b6);
 }
 .ls-main{
 	width: 350px;
@@ -88,3 +91,6 @@ button:hover{
 #chk:checked ~ .ls-signup label{
 	transform: scale(.6);
 }
+`;
+
+export default StyleLoginSignup;

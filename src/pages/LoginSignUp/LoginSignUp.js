@@ -2,9 +2,10 @@ import React from "react";
 import { Helmet } from 'react-helmet';
 import { useState } from "react";
 import axios from 'axios';
-import './LoginSignUp.css';
+import StyleLoginSignup from "./StyleLoginSignup";
 import { useDispatch } from "react-redux";
-import { addToken } from "../store/slices/TokenSlice";
+import { addToken } from "../../store/slices/TokenSlice";
+import URL from "../../data/URL";
 
 const LoginSignUp = () => {
 
@@ -24,7 +25,7 @@ const LoginSignUp = () => {
         e.preventDefault();
 
         try {
-            const response = await axios.post('https://646b-115-69-246-177.ngrok-free.app/api/auth/signup', signup);
+            const response = await axios.post(URL.link+'/api/auth/signup', signup);
 
             // Handle the response as needed
             dispatch(addToken(response.data.token));
@@ -38,7 +39,7 @@ const LoginSignUp = () => {
         e.preventDefault();
 
         try {
-            const response = await axios.post('https://646b-115-69-246-177.ngrok-free.app/api/auth/signin', login);
+            const response = await axios.post(URL.link+'/api/auth/signin', login);
 
             // Handle the response as needed
             dispatch(addToken(response.data.token));
@@ -57,6 +58,7 @@ const LoginSignUp = () => {
                     href="https://fonts.googleapis.com/css2?family=Jost:wght@500&display=swap"
                 />
             </Helmet>
+            <StyleLoginSignup>
             <div className="ls-body">
                 <div className="ls-main">
                     <input type="checkbox" id="chk" aria-hidden="true" />
@@ -85,6 +87,7 @@ const LoginSignUp = () => {
                     </div>
                 </div>
             </div>
+            </StyleLoginSignup>
         </>
 
     );
