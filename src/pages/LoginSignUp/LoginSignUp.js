@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import { useState } from "react";
 import axios from 'axios';
@@ -11,6 +12,7 @@ const LoginSignUp = () => {
 
     const [signup, setSignUp] = useState({});
     const [login, setLogIn] = useState({});
+    const navigate = useNavigate();
     const dispatch = useDispatch();
 
     const getUserSignUpData = (e) => {
@@ -44,6 +46,8 @@ const LoginSignUp = () => {
             // Handle the response as needed
             dispatch(addToken(response.data.token));
             // console.log('Response from server:', response.data.token);
+
+            navigate('/userdetails')
         } catch (error) {
             console.error('Error making API call:', error);
         }

@@ -1,15 +1,31 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import StyleUserDetails from "./StyleUserDetails";
 import styled from "styled-components";
 import ChangeProfilePhoto from "../../components/ChangeProfilePhoto";
+import { useSelector } from 'react-redux';
+import WentWrong from "../WentWrong/WentWrong";
+import { tokenValue } from "../../store/slices/TokenSlice";
 
 const UserDetails = () => {
     const [birthDate, setBirthDate] = useState(null);
 
+    const token = useSelector(tokenValue);
+
+    console.log(token);
+
+    useEffect(() => {
+
+        if (!token) {
+            console.log('No token found. Redirecting...');
+        }
+    }, [token]);
+
     return (
-        <StyleUserDetails>
+        <div>
+            {token !== null ? (
+            <StyleUserDetails>
             <div className="ud-body">
                 <div className="container">
                     <div className="title">Personal Details</div>
@@ -39,27 +55,27 @@ const UserDetails = () => {
                                     />
                                 </div>
                             </div>
-                            <div class="gender-details">
+                            <div className="gender-details">
                                 <input type="radio" name="gender" id="dot-1" />
                                 <input type="radio" name="gender" id="dot-2" />
                                 <input type="radio" name="gender" id="dot-3" />
-                                <span class="gender-title">Gender</span>
-                                <div class="category">
-                                    <label for="dot-1">
-                                        <span class="dot one"></span>
-                                        <span class="gender">Male</span>
+                                <span className="gender-title">Gender</span>
+                                <div className="category">
+                                    <label htmlFor="dot-1">
+                                        <span className="dot one"></span>
+                                        <span className="gender">Male</span>
                                     </label>
-                                    <label for="dot-2">
-                                        <span class="dot two"></span>
-                                        <span class="gender">Female</span>
+                                    <label htmlFor="dot-2">
+                                        <span className="dot two"></span>
+                                        <span className="gender">Female</span>
                                     </label>
-                                    <label for="dot-3">
-                                        <span class="dot three"></span>
-                                        <span class="gender">Prefer not to say</span>
+                                    <label htmlFor="dot-3">
+                                        <span className="dot three"></span>
+                                        <span className="gender">Prefer not to say</span>
                                     </label>
                                 </div>
                             </div>
-                            <div class="button">
+                            <div className="button">
                                 <input type="submit" value="Save Details" />
                             </div>
                         </form>
@@ -67,6 +83,11 @@ const UserDetails = () => {
                 </div>
             </div>
         </StyleUserDetails>
+            )
+             : (
+                <WentWrong/>
+            )}
+        </div>
     )
 }
 

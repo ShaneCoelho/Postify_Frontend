@@ -1,16 +1,15 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { produce } from "immer";
 
 const TokenSlice = createSlice({
     name: "token",
-    initialState: "",
+    initialState: {
+        token: null,
+      },
     reducers: {
-        addToken(state, action) {
-            return produce(state, (draftState) => {
-                draftState = action.payload;
-                console.log(draftState);
-            });
-        },
+        addToken: (state, action) => {
+            state.token = action.payload;
+            console.log(state.token);
+          },
         getToken(state, action) {
 
         },
@@ -18,5 +17,6 @@ const TokenSlice = createSlice({
     },
 })
 
+export const tokenValue = (state) => state.token.token;
 export default TokenSlice.reducer;
 export const { addToken, getToken } = TokenSlice.actions;
